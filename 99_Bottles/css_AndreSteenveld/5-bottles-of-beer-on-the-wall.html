@@ -1,0 +1,46 @@
+<html>
+<head>
+    
+    <style>        
+        
+        #lyrics [line]:nth-child(6n),
+        #lyrics [line]:nth-child(6n+1) { counter-reset: bottles-of-beer 5; }
+        
+        #lyrics [line] [one-down] { counter-increment: bottles-of-beer -1; }
+        
+        #lyrics [line] { list-style: none; }
+        
+        #lyrics [line] [bottles-on-the-wall]::after { content: counter( bottles-of-beer ) " bottles of beer on the wall, "; }
+        #lyrics [line] [bottles-of-beer]::after { content: counter( bottles-of-beer ) " bottles of beer. Take one down, pass it around, "; }
+        #lyrics [line] [one-down]::after { content: counter( bottles-of-beer ) "  bottles of beer on the wall..."; }
+        
+        #lyrics [line]:nth-child(6n+5) [bottles-on-the-wall]::after { content: counter( bottles-of-beer ) " bottle of beer on the wall, "; }
+        #lyrics [line]:nth-child(6n+5) [bottles-of-beer]::after { content: counter( bottles-of-beer ) " bottle of beer. Take the last one down, pass it around, "; }
+        #lyrics [line]:nth-child(6n+5) [one-down]::after { content: " no more bottles of beer on the wall..."; }
+    
+        #lyrics [line]:not(:first-child):nth-child(6n) [bottles-on-the-wall]::after { content: "No more bottle of beer on the wall, "; }
+        #lyrics [line]:not(:first-child):nth-child(6n) [bottles-of-beer]::after { content: "no more bottles of beer. Go to the store and buy some more, " counter( bottles-of-beer ) " bottles of beer on the wall..."; }
+        #lyrics [line]:not(:first-child):nth-child(6n) [one-down]::after { content: ""; }
+        
+    </style>
+    
+</head>
+<body>
+    
+    <ul id="lyrics"></ul>
+    
+    <script>
+        
+        var 
+            bottles_of_beer_on_the_wall = 5,
+            goto_the_shop = 3;
+        
+        var html = "<li line><span bottles-on-the-wall></span> <span bottles-of-beer></span> <span one-down></span></li>"
+            .repeat( bottles_of_beer_on_the_wall * goto_the_shop + goto_the_shop - 1);
+        
+        document.getElementById( "lyrics" ).innerHTML = html;
+        
+    </script>
+    
+</body>
+</html>
